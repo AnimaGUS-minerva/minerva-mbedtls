@@ -313,14 +313,7 @@ impl pk_context {
 
         let output: &mut [u8] = unsafe { core::slice::from_raw_parts_mut(output, len) };
         for x in output.iter_mut() {
-            #[cfg(target_arch = "xtensa")]
-            {
-                unimplemented!("xtensa");
-            }
-            #[cfg(not(target_arch = "xtensa"))]
-            {
-                *x = unsafe { rand() as u8 };
-            }
+            *x = unsafe { rand() as u8 };
         }
 
         0
