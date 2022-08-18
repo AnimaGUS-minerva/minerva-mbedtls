@@ -7,8 +7,11 @@ pub use minerva_mbedtls;
 use minerva_mbedtls::{psa_crypto, psa_ifce::*, mbedtls_error};
 
 fn init_psa_crypto() {
-    psa_crypto::init().unwrap();
-    psa_crypto::initialized().unwrap();
+    #[cfg(not(feature = "no-init-psa"))]
+    {
+        psa_crypto::init().unwrap();
+        psa_crypto::initialized().unwrap();
+    }
 }
 
 //
