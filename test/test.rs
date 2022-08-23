@@ -4,18 +4,7 @@ use mcu_if::alloc::vec;
 pub use minerva_mbedtls;
 use minerva_mbedtls::{psa_ifce::*, mbedtls_error};
 
-fn init_psa_crypto() {
-    #[cfg(not(feature = "no-init-psa"))]
-    {
-        use minerva_mbedtls::psa_crypto;
-        psa_crypto::init().unwrap();
-        psa_crypto::initialized().unwrap();
-    }
-}
-
 pub fn test_md() -> Result<(), mbedtls_error> {
-    init_psa_crypto();
-
     // product jada
     let msg: &[u8] = /* `to_verify` */ &[132, 106, 83, 105, 103, 110, 97, 116, 117, 114, 101, 49, 65, 160, 64, 88, 185, 161, 26, 0, 15, 70, 140, 166, 5, 105, 112, 114, 111, 120, 105, 109, 105, 116, 121, 6, 193, 26, 87, 247, 248, 30, 8, 193, 26, 89, 208, 48, 0, 14, 109, 74, 65, 68, 65, 49, 50, 51, 52, 53, 54, 55, 56, 57, 11, 105, 97, 98, 99, 100, 49, 50, 51, 52, 53, 13, 120, 124, 77, 70, 107, 119, 69, 119, 89, 72, 75, 111, 90, 73, 122, 106, 48, 67, 65, 81, 89, 73, 75, 111, 90, 73, 122, 106, 48, 68, 65, 81, 99, 68, 81, 103, 65, 69, 78, 87, 81, 79, 122, 99, 78, 77, 85, 106, 80, 48, 78, 114, 116, 102, 101, 66, 99, 48, 68, 74, 76, 87, 102, 101, 77, 71, 103, 67, 70, 100, 73, 118, 54, 70, 85, 122, 52, 68, 105, 102, 77, 49, 117, 106, 77, 66, 101, 99, 47, 103, 54, 87, 47, 80, 54, 98, 111, 84, 109, 121, 84, 71, 100, 70, 79, 104, 47, 56, 72, 119, 75, 85, 101, 114, 76, 53, 98, 112, 110, 101, 75, 56, 115, 103, 61, 61];
 
@@ -31,8 +20,6 @@ pub fn test_md() -> Result<(), mbedtls_error> {
 }
 
 pub fn test_pk_context_verify_via_ecp() -> Result<(), mbedtls_error> {
-    init_psa_crypto();
-
     // product jada
     let hash = &md_info::from_type(MD_SHA256)
         .md(/* `to_verify` */ &[132, 106, 83, 105, 103, 110, 97, 116, 117, 114, 101, 49, 65, 160, 64, 88, 185, 161, 26, 0, 15, 70, 140, 166, 5, 105, 112, 114, 111, 120, 105, 109, 105, 116, 121, 6, 193, 26, 87, 247, 248, 30, 8, 193, 26, 89, 208, 48, 0, 14, 109, 74, 65, 68, 65, 49, 50, 51, 52, 53, 54, 55, 56, 57, 11, 105, 97, 98, 99, 100, 49, 50, 51, 52, 53, 13, 120, 124, 77, 70, 107, 119, 69, 119, 89, 72, 75, 111, 90, 73, 122, 106, 48, 67, 65, 81, 89, 73, 75, 111, 90, 73, 122, 106, 48, 68, 65, 81, 99, 68, 81, 103, 65, 69, 78, 87, 81, 79, 122, 99, 78, 77, 85, 106, 80, 48, 78, 114, 116, 102, 101, 66, 99, 48, 68, 74, 76, 87, 102, 101, 77, 71, 103, 67, 70, 100, 73, 118, 54, 70, 85, 122, 52, 68, 105, 102, 77, 49, 117, 106, 77, 66, 101, 99, 47, 103, 54, 87, 47, 80, 54, 98, 111, 84, 109, 121, 84, 71, 100, 70, 79, 104, 47, 56, 72, 119, 75, 85, 101, 114, 76, 53, 98, 112, 110, 101, 75, 56, 115, 103, 61, 61]);
@@ -52,8 +39,6 @@ pub fn test_pk_context_verify_via_ecp() -> Result<(), mbedtls_error> {
 }
 
 pub fn test_pk_context_verify_via_x509_crt() -> Result<(), mbedtls_error> {
-    init_psa_crypto();
-
     // product f2_00_02
     let pem = b"-----BEGIN CERTIFICATE-----
 MIIByzCCAVKgAwIBAgIESltVuTAKBggqhkjOPQQDAjBTMRIwEAYKCZImiZPyLGQB
@@ -83,8 +68,6 @@ G5/TRupdVlCjPz1+tm/iA9ykx/sazZsuPgw14YulLw==
 }
 
 pub fn test_pk_context_sign() -> Result<(), mbedtls_error> {
-    init_psa_crypto();
-
     // product 02_00_2e
     let hash = &[106, 89, 235, 58, 30, 187, 255, 243, 109, 213, 190, 148, 10, 189, 99, 109, 245, 189, 49, 17, 191, 161, 61, 17, 16, 123, 135, 119, 223, 123, 126, 174];
     let pem = b"-----BEGIN EC PRIVATE KEY-----
@@ -126,8 +109,18 @@ pub fn test_utils_is_asn1_signature() -> Result<(), mbedtls_error> {
     Ok(())
 }
 
+#[cfg(test)]
+fn init_psa_crypto() {
+    #[cfg(not(feature = "no-init-psa"))]
+    {
+        use minerva_mbedtls::psa_crypto;
+        psa_crypto::init().unwrap();
+        psa_crypto::initialized().unwrap();
+    }
+}
+
 #[test] fn md(){ test_md().unwrap() }
-#[test] fn pk_context_verify_via_ecp() { test_pk_context_verify_via_ecp().unwrap() }
-#[test] fn pk_context_verify_via_x509_crt() { test_pk_context_verify_via_x509_crt().unwrap() }
-#[test] fn pk_context_sign() { test_pk_context_sign().unwrap() }
+#[test] fn pk_context_verify_via_ecp() { init_psa_crypto(); test_pk_context_verify_via_ecp().unwrap() }
+#[test] fn pk_context_verify_via_x509_crt() { init_psa_crypto(); test_pk_context_verify_via_x509_crt().unwrap() }
+#[test] fn pk_context_sign() { init_psa_crypto(); test_pk_context_sign().unwrap() }
 #[test] fn utils_is_asn1_signature() { test_utils_is_asn1_signature().unwrap() }
