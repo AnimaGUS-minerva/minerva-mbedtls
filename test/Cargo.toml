@@ -13,5 +13,5 @@ std = ["minerva-mbedtls/std"]
 no-init-psa = []
 
 [dependencies]
-mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "f228240" }
+mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "7f30df8" }
 minerva-mbedtls = { path = '..', default-features = false, optional = true }
