@@ -12,5 +12,5 @@ default = []
 std = []
 
 [dependencies]
-mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "254de7d" }
+mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "da77a48" }
 psa-crypto = { git = "https://github.com/AnimaGUS-minerva/rust-psa-crypto", rev = "b51150e", features=["minerva"] }
