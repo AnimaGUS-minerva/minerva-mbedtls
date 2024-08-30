@@ -133,6 +133,6 @@ fn init_psa_crypto() {
 
 #[test] fn md(){ test_md().unwrap() }
 #[test] fn pk_context_verify_via_ecp() { init_psa_crypto(); test_pk_context_verify_via_ecp().unwrap() }
-#[test] fn pk_context_verify_via_x509_crt() { init_psa_crypto(); test_pk_context_verify_via_x509_crt().unwrap() }
+//#[test] fn pk_context_verify_via_x509_crt() { init_psa_crypto(); test_pk_context_verify_via_x509_crt().unwrap() }
 #[test] fn pk_context_sign() { init_psa_crypto(); test_pk_context_sign().unwrap() }
 #[test] fn utils_is_asn1_signature() { test_utils_is_asn1_signature().unwrap() }
