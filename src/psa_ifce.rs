@@ -43,7 +43,7 @@ impl md_info {
 //
 // x509_crt
 //
-// /* !!
+
 pub struct x509_crt(mbedtls::x509_crt);
 
 impl Drop for x509_crt {
@@ -61,9 +61,9 @@ impl x509_crt {
     }
 
     pub fn pk_ctx(&mut self) -> pk_context {
-//        pk_context::from(&mut self.0.private_pk as *mut mbedtls::pk_context)
-//==== !!
-todo!();
+        unimplemented!();
+        // FIXME error[E0609]: no field `private_pk` on type `psa_crypto::psa_crypto_sys::mbedtls::x509_crt`
+        //pk_context::from(&mut self.0.private_pk as *mut mbedtls::pk_context)
     }
 
     pub fn parse(&mut self, buf: &[u8]) -> Result<&mut Self, mbedtls_error> {
@@ -103,7 +103,7 @@ todo!();
         Ok(self)
     }
 }
-// !! */
+
 //
 // ecp_group
 //
