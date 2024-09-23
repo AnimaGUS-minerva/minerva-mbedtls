@@ -61,9 +61,7 @@ impl x509_crt {
     }
 
     pub fn pk_ctx(&mut self) -> pk_context {
-        unimplemented!();
-        // FIXME error[E0609]: no field `private_pk` on type `psa_crypto::psa_crypto_sys::mbedtls::x509_crt`
-        //pk_context::from(&mut self.0.private_pk as *mut mbedtls::pk_context)
+        pk_context::from(&mut self.0.pk as *mut mbedtls::pk_context)
     }
 
     pub fn parse(&mut self, buf: &[u8]) -> Result<&mut Self, mbedtls_error> {
