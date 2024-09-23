@@ -7,8 +7,7 @@ SHELL := /bin/bash
 # 'test' or 'ci'
 TARGET ?= test
 ci:
-	##TARGET=ci make test
-	TARGET=ci make test-x86_64 test-x86  # WIP with rust-psa-crypto--0.12.0-minerva
+	TARGET=ci make test
 
 init-rust-toolchains:
 	rustup toolchain install nightly-x86_64-unknown-linux-gnu
