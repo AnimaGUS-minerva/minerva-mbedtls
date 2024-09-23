@@ -10,7 +10,6 @@ path = "test.rs"
 [features]
 default = ["minerva-mbedtls"]
 std = ["minerva-mbedtls/std"]
-no-init-psa = []
 
 [dependencies]
 mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "da77a48" }

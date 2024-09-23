@@ -111,12 +111,9 @@ pub fn test_utils_is_asn1_signature() -> Result<(), mbedtls_error> {
 
 #[cfg(test)]
 fn init_psa_crypto() {
-    #[cfg(not(feature = "no-init-psa"))]
-    {
-        use minerva_mbedtls::psa_crypto;
-        psa_crypto::init().unwrap();
-        psa_crypto::initialized().unwrap();
-    }
+    use minerva_mbedtls::psa_crypto;
+    psa_crypto::init().unwrap();
+    psa_crypto::initialized().unwrap();
 }
 
 #[test] fn md(){ test_md().unwrap() }

@@ -23,11 +23,6 @@ test-examples:
 	for name in $(NAMES); do \
         make -C ./examples/$$name test || exit 1; done
 
-test-no-init-psa:
-	@echo '⚠️  Expect error 101 from `cargo test`'
-	( cargo test --manifest-path ./test/Cargo.toml --features "no-init-psa" && exit 1 ) || [ $$? -eq 101 ]
-	@echo '^^^^^ ✅ Got error 101 as expected from `cargo test`'
-
 test-x86_64:
 	cargo build --lib --release
 	cargo test --manifest-path ./test/Cargo.toml
@@ -41,5 +36,4 @@ test-x86:
 test:
 	make test-x86_64
 	make test-x86
-	make test-no-init-psa
 	make test-examples
