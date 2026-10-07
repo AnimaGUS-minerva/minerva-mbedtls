@@ -24,13 +24,13 @@ test-examples:
 
 test-x86_64:
 	cargo build --lib --release
-	cargo test --manifest-path ./test/Cargo.toml
-	cargo test --manifest-path ./test/Cargo.toml --no-default-features --features "std"
+	RUST_TEST_THREADS=1 cargo test --manifest-path ./test/Cargo.toml
+	RUST_TEST_THREADS=1 cargo test --manifest-path ./test/Cargo.toml --no-default-features --features "std"
 
 test-x86:
 	cargo build --lib --release --target i686-unknown-linux-gnu
-	cargo test --manifest-path ./test/Cargo.toml --target i686-unknown-linux-gnu
-	cargo test --manifest-path ./test/Cargo.toml --no-default-features --features "std" --target i686-unknown-linux-gnu
+	RUST_TEST_THREADS=1 cargo test --manifest-path ./test/Cargo.toml --target i686-unknown-linux-gnu
+	RUST_TEST_THREADS=1 cargo test --manifest-path ./test/Cargo.toml --no-default-features --features "std" --target i686-unknown-linux-gnu
 
 test:
 	make test-x86_64

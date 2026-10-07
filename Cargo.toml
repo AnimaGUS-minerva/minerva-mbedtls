@@ -1,6 +1,6 @@
 [package]
 name = "minerva-mbedtls"
-version = "0.5.4"
+version = "0.5.5"
 edition = "2018"
 authors = ["ANIMA Minerva toolkit"]
 
@@ -12,7 +12,7 @@ default = []
 std = []
 
 [dependencies]
-mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "da77a48" }
-psa-crypto = { git = "https://github.com/AnimaGUS-minerva/rust-psa-crypto", rev = "b62d500", features=["minerva"] }
+mcu-if = { git = "https://github.com/AnimaGUS-minerva/mcu-if", rev = "645f98d" }
+psa-crypto = { git = "https://github.com/AnimaGUS-minerva/rust-psa-crypto", rev = "3ecee58", features=["minerva"] }
 #psa-crypto      = { path = "/ssw/projects/trentonio/rust-psa-crypto/psa-crypto", features=["minerva", "operations"] }
 
